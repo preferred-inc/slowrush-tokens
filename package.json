@@ -18,7 +18,10 @@
   "exports": {
     "./tokens.css": "./src/tokens.css",
     "./tokens.json": "./src/tokens.json",
-    "./tailwind": "./src/tailwind-preset.cjs",
+    "./tailwind": {
+      "types": "./src/tailwind-preset.d.ts",
+      "default": "./src/tailwind-preset.cjs"
+    },
     "./package.json": "./package.json"
   },
   "sideEffects": [
@@ -30,5 +33,13 @@
   "keywords": [
     "design-tokens",
     "slow-rush-coffee"
-  ]
+  ],
+  "peerDependencies": {
+    "tailwindcss": ">=3.4"
+  },
+  "peerDependenciesMeta": {
+    "tailwindcss": {
+      "optional": true
+    }
+  }
 }

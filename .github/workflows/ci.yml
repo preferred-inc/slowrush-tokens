@@ -1,0 +1,18 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      # CSS / JSON / Tailwind preset の値の一致とコントラストを見る。
+      # 3形式のズレがこのパッケージを作った理由なので、ここで止める
+      - run: npm test

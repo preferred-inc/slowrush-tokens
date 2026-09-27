@@ -1,0 +1,51 @@
+name: Publish
+
+# タグを打つと GitHub Packages へ公開する。
+#
+#   npm version patch      # package.json を上げてタグを打つ
+#   git push --follow-tags
+#
+# 手元から publish しない理由は preferred-ui と同じ。
+# 認証情報を各自が持つ必要があり、誰がどのバージョンを出したかも追えなくなる。
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+      # GitHub Packages へ書き込むために必要
+      packages: write
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          registry-url: https://npm.pkg.github.com
+          scope: "@preferred-inc"
+
+      # 値のズレとコントラストを見る。壊れた値を配らないため
+      - name: トークンの検査
+        run: npm test
+
+      - name: タグとバージョンの一致を確認
+        if: startsWith(github.ref, 'refs/tags/v')
+        run: |
+          TAG="${GITHUB_REF_NAME#v}"
+          PKG=$(node -p "require('./package.json').version")
+          if [ "$TAG" != "$PKG" ]; then
+            echo "::error::タグ v$TAG と package.json の $PKG が一致しない"
+            exit 1
+          fi
+          echo "v$PKG を公開します"
+
+      - name: 公開
+        run: npm publish --access restricted
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
