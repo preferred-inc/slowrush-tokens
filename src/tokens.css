@@ -1,0 +1,87 @@
+/* ==========================================================
+   Slow Rush Coffee — Design Tokens
+   ブランドの色・書体・間隔の正本。
+   サイト（slowrush.jp）、モバイルオーダー、店頭の印刷物まで
+   ここの値を読む。ハードコードした色を各リポに書かない。
+
+   色の根拠: ロゴSVGから抽出した実カラー
+   ガイド:   https://slowrush.jp/brand
+   ========================================================== */
+
+:root {
+  /* --- Color ---------------------------------------------
+     1枚の中で使う「色」はティール1色。茶はロゴと小見出しに
+     留めて、面で塗らない。 */
+  --sr-teal: #00666b; /* Primary。見出し・罫線・帯・シンボル */
+  --sr-teal-dark: #004a4e; /* 背景ベタ用の濃度違い */
+  --sr-espresso: #48322a; /* ロゴの茶。ロゴとキッカーのみ */
+  --sr-cream: #f4f1ea; /* 基本背景 */
+  --sr-sand: #e9e4d9; /* カード・帯・罫線 */
+  --sr-material: #d9cfc0; /* グッズの生地・クラフト紙 */
+  --sr-charcoal: #26241f; /* 本文 */
+  --sr-white: #ffffff;
+
+  /* 注釈・キャプション。
+     かつて #8A8375 だったが cream 上で 3.33:1 と WCAG AA に
+     届かないため 2026-09 に変更した。現在 cream 上 5.13:1 /
+     sand 上 4.57:1。薄くしないこと。 */
+  --sr-subtle: #6b6558;
+
+  /* 状態色。多用しない */
+  --sr-danger: #a94438;
+
+  /* --- Typography ----------------------------------------
+     書体は役割で分ける。1つの書体に全部を兼ねさせない。 */
+
+  /* 見出し（ディスプレイ）。大きく組んだときに効く */
+  --sr-font-display: "EB Garamond", "Zen Old Mincho", "Hiragino Mincho ProN",
+    "Yu Mincho", serif;
+
+  /* UI のラベル・価格・数字。ロゴのワードマークと同系。
+     小さい字と数字の可読性はこちらが上 */
+  --sr-font-ui: "Source Sans 3", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+
+  /* 日本語の本文 */
+  --sr-font-jp: "Zen Kaku Gothic New", -apple-system, BlinkMacSystemFont,
+    "Hiragino Sans", "Noto Sans JP", sans-serif;
+
+  /* 「ゆっくり、急げ。」専用。他の用途に広げない */
+  --sr-font-tagline: "Zen Old Mincho", "Hiragino Mincho ProN", "Yu Mincho",
+    serif;
+
+  /* --- Spacing（8px グリッド）--- */
+  --sr-s1: 8px;
+  --sr-s2: 16px;
+  --sr-s3: 24px;
+  --sr-s4: 32px;
+  --sr-s5: 40px;
+  --sr-s6: 48px;
+  --sr-s8: 64px;
+  --sr-s10: 80px;
+  --sr-s14: 112px;
+  --sr-s20: 160px; /* セクションの上下。広く取るのがブランド */
+
+  /* --- Radius --------------------------------------------
+     角丸は 0 か pill の二択。中途半端な丸みを混ぜると
+     すぐテンプレートに見える。 */
+  --sr-radius-none: 0;
+  --sr-radius-sm: 2px; /* バッジなど、ごく小さいものだけ */
+  --sr-radius-pill: 9999px; /* ボタン・タグ */
+}
+
+/* ----------------------------------------------------------
+   厨房・暗所向け（KDS など）
+   遠くから見る画面は cream 背景だと眩しく、文字が沈む。
+   同じブランド色のまま、明度関係だけ反転させる。
+   data-sr-theme="dark" を要素に付けて使う。
+   ---------------------------------------------------------- */
+[data-sr-theme="dark"] {
+  --sr-cream: #14140f; /* 面（背景） */
+  --sr-sand: #24241d; /* カード・罫線 */
+  --sr-charcoal: #f1efe8; /* 本文＝明るい側に入れ替える */
+  --sr-subtle: #a8a294; /* 暗所で 4.5:1 以上になる明度 */
+  --sr-teal: #4db6ba; /* 暗背景でも沈まないティール */
+  --sr-teal-dark: #0c2f31;
+  --sr-espresso: #c8a898;
+}

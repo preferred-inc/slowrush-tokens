@@ -1,0 +1,34 @@
+{
+  "name": "@preferred-inc/slowrush-tokens",
+  "version": "0.1.0",
+  "description": "Slow Rush Coffee のデザイントークン（色・書体・間隔・角丸）。slowrush.jp と StoreOS が共通で読む正本。",
+  "license": "UNLICENSED",
+  "private": false,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/preferred-inc/slowrush-tokens.git"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "files": [
+    "src",
+    "README.md"
+  ],
+  "exports": {
+    "./tokens.css": "./src/tokens.css",
+    "./tokens.json": "./src/tokens.json",
+    "./tailwind": "./src/tailwind-preset.cjs",
+    "./package.json": "./package.json"
+  },
+  "sideEffects": [
+    "*.css"
+  ],
+  "scripts": {
+    "test": "node test/tokens.test.mjs"
+  },
+  "keywords": [
+    "design-tokens",
+    "slow-rush-coffee"
+  ]
+}
