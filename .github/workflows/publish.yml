@@ -7,6 +7,12 @@ name: Publish
 #
 # 手元から publish しない理由は preferred-ui と同じ。
 # 認証情報を各自が持つ必要があり、誰がどのバージョンを出したかも追えなくなる。
+#
+# ⚠️ 利用側は npm ではなく git 参照で引いている
+#    （github:preferred-inc/slowrush-tokens#v0.1.0）。
+#    組織の Package creation ポリシーで public パッケージが無効で、
+#    npm 参照だと認証が要るため。公開自体は履歴として残す意味で続ける。
+#    利用側が見るのは「タグ」なので、タグを打つ運用は変わらない。
 on:
   push:
     tags:

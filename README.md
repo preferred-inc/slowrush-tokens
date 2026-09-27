@@ -13,14 +13,19 @@ Slow Rush Coffee のデザイントークン（色・書体・間隔・角丸）
 ## 入れる
 
 ```bash
-pnpm add @preferred-inc/slowrush-tokens
+pnpm add github:preferred-inc/slowrush-tokens#v0.1.0
 ```
 
-`.npmrc` に GitHub Packages の設定が要ります。
+**git 参照を使います。** リポジトリは public なので認証は要りません。
+Vercel も GitHub Actions もそのまま取得できます。
 
-```
-@preferred-inc:registry=https://npm.pkg.github.com
-```
+> GitHub Packages にも `@preferred-inc/slowrush-tokens` として publish
+> していますが、**組織の Package creation ポリシーで public パッケージが
+> 無効**なため、npm 参照では認証なしに引けません。
+> 組織全体のポリシーを緩めてまで npm 参照にする理由がないので、
+> git 参照で運用します（2026-09-27 判断）。
+>
+> バージョンはタグで固定できるので、実務上の差はありません。
 
 ## 使う
 
@@ -127,7 +132,14 @@ CSS 変数名は変わらないので、`var(--sr-charcoal)` のまま書けま�
 
 1. `src/tokens.css`・`src/tokens.json`・`src/tailwind-preset.cjs` の**3つとも**直す
 2. `pnpm test` を通す（3形式の一致とコントラストを見ています）
-3. version を上げて publish
-4. 利用側リポジトリで更新する
+3. version を上げ、タグを打って push する
+
+   ```bash
+   npm version patch
+   git push --follow-tags
+   ```
+
+4. 利用側リポジトリの参照タグを上げる
+   （`github:preferred-inc/slowrush-tokens#v0.1.1` のように）
 
 テストは3形式のズレを見張るためにあります。1つだけ直して済ませないでください。
